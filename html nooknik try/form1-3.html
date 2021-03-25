@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="th">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+ 
+        <!-- Google Font -->
+        <link href="//fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+        <link href="//fonts.googleapis.com/css2?family=Mitr&display=swap" rel="stylesheet">
+ 
+        <style>
+            html {
+ 
+            }
+            body {
+                font-family: Inter, -apple-system, BlinkMacSystemFont, Roboto, 'Mitr', sans-serif;
+                line-height: 1.5;
+                -webkit-font-smoothing: antialiased;
+                -webkit-text-size-adjust: 100%;
+                text-rendering: optimizelegibility;
+            }
+ 
+            .background {
+                height: 100vh;
+                background-image: url('https://pharm.md.kku.ac.th/static/elements/images/12863865396672.JPG');
+                filter: blur(5px);
+                -webkit-filter: blur(5px);
+                opacity: 0.35;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+            }
+ 
+            @media only screen and (max-width: 768px) {
+                .center {
+                    position: absolute;
+                    width: 90%;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            }
+ 
+            .center {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+        </style>
+ 
+        <title>Organization Documents Tracker</title>
+    </head>
+
+    <body>
+        <div class="background"></div>
+        <div class="container">
+            <div class="center">
+                <div class="text-center">
+                    <img src="https://pharm.md.kku.ac.th/static/elements/logo/logo.png" width="128" height="128" />
+                    <h3 class="fw-bold">ระบบติดตามการจัดหายาเฉพาะรายให้ผู้ป่วยเฉพาะโรค</h3>
+                    <h5 class="fw-lighter">งานเภสัชกรรม โรงพยาบาลศรีนครินทร์</h5>
+                </div>
+    
+        <form>
+            <div class="card">
+                <div class="card-body">
+                    <div class="text-center">
+                    <h4 class="fw-bold">แบบฟอร์ม"....."</h4>
+                    </div>
+                <h6 class="fw-bold">ข้อมูลแพทย์ผู้ใช้ยา</h6>
+                ชื่อ-สกุลแพทย์ <input type="text"><br>
+                ภาควิชา <input type="text"><br>
+
+                <label for="phone">โทรศัพท์ </label>
+                <input type="tel" id="phone" name="phone" 
+                pattern="[0-9]{10}" required><br><br>
+
+                <h6 class="fw-bold">ข้อมูลผู้ป่วย</h6>
+                ชื่อ-สกุลผู้ป่วย <input type="text"><br>
+                อายุ <input type="text">
+                น้ำหนัก <input type="text"><br>
+                ECOG Score (ยังไม่รู้เขียนไง)<br>
+                สิทธิ (ทำเรดิโอหลายอันยังไง) <input type="radio" >
+            </div>
+            
+        </form>
+</body>
+
+</html>
