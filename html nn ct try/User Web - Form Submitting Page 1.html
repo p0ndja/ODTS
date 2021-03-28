@@ -84,24 +84,24 @@
                         <div class="mb-3">
                             <h6 class="fw-bold">ข้อมูลแพทย์ผู้ใช้ยา</h6>
                             <div class="form-group row">
-                                <label for="docterName"
+                                <label for="doctorName"
                                     class="col-md-3 col-form-label text-md-end">ชื่อ-สกุลแพทย์</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" id="docterName" name="docterName" required>
+                                    <input type="text" class="form-control" id="doctorName" name="doctorName" required>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="docterDivision" class="col-md-3 col-form-label text-md-end">ภาควิชา</label>
+                                <label for="doctorDivision" class="col-md-3 col-form-label text-md-end">ภาควิชา</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" id="docterDivision" name="docterDivision"
+                                    <input type="text" class="form-control" id="doctorDivision" name="doctorDivision"
                                         required>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="docterTelephone"
+                                <label for="doctorTelephone"
                                     class="col-md-3 col-form-label text-md-end">โทรศัพท์</label>
                                 <div class="col-md-9">
-                                    <input type="tel" class="form-control" id="docterTelephone" name="docterTelephone"
+                                    <input type="tel" class="form-control" id="doctorTelephone" name="doctorTelephone"
                                         pattern="[0-9]{10}" required>
                                 </div>
                             </div>
@@ -124,17 +124,17 @@
                             <div class="form-group row">
                                 <label for="patientAge" class="col-md-3 col-form-label text-md-end">อายุ</label>
                                 <div class="col-md-2">
-                                    <input type="number" class="form-control" id="patientAge" name="patientAge"
+                                    <input type="number" class="form-control" min="0" id="patientAge" name="patientAge"
                                         required>
                                 </div>
                                 <label for="patientWeight" class="col-md-1 col-form-label text-md-end">น้ำหนัก</label>
                                 <div class="col-md-2">
-                                    <input type="number" class="form-control" id="patientWeight" name="patientWeight"
+                                    <input type="number" class="form-control" min="0" id="patientWeight" name="patientWeight"
                                         required>
                                 </div>
                                 <label for="patientHeight" class="col-md-1 col-form-label text-md-end">ส่วนสูง</label>
                                 <div class="col-md-2">
-                                    <input type="number" class="form-control" id="patientHeight" name="patientHeight"
+                                    <input type="number" class="form-control" min="0" id="patientHeight" name="patientHeight"
                                         required>
                                 </div>
                             </div>
