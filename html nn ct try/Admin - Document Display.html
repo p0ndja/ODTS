@@ -55,6 +55,27 @@
                 top: 50%;
                 transform: translate(-50%, -50%);
             }
+            .card {
+                border-radius: 30px;
+
+            }
+
+            .card-body textarea {
+                background-color: lightgray;
+                border: 0;
+                border-radius: 15px;
+                width: 100%;
+                height: 100px;
+        
+            }
+            .card-body input[type="file"] {
+                background-color: lightgray;
+                border: 0;
+                border-top-right-radius: 15px;
+                border-bottom-right-radius: 15px;
+                margin-top: 10px;
+                width: 85%;
+            }
         </style>
  
         <title>Organization Documents Tracker</title>
@@ -86,12 +107,11 @@
                      - ... .pdf <br>
 
                     ลงความเห็น <br>
-                    <input type="text"><br>
-                    แนบไฟล์ <input type="text">
+                    <textarea type="text"></textarea><br>
+                    แนบไฟล์ <input type="file">
+                    
                 </div>
-                <button> ไม่อนุมัติ </button>
-                <button onClick = “window.open(‘sweetalert.html’)”>อนุมัติ </button>
-                <button> ร้องขอเพิ่มเติม </button>
+                
                 
             </div>
             
