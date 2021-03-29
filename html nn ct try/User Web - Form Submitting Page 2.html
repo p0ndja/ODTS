@@ -62,6 +62,38 @@
             top: 50%;
             transform: translate(-50%, -50%);
         }
+        .card-body {
+            padding: auto;
+            background-color: rgb(255, 255, 255);
+            border: 0;
+            outline: none;
+            margin: auto;
+            width: 100%;
+            border-radius: 30px
+            
+            
+        }
+        .form-check-label {
+            margin-bottom: 10px;
+        }
+        .before {
+            width: 15%;
+            background-color: #FF8A00;
+            color: white;
+            border-radius: 60px;
+            border: 0;
+            margin-top: 30px;
+            outline: none;
+        }
+        .next {
+            width: 15%;
+            background-color: #0C9200;
+            color: white;
+            border-radius: 60px;
+            border: 0;
+            margin-top: 30px;
+            outline: none;
+        }
     </style>
  
     <title>Organization Documents Tracker</title>
@@ -77,11 +109,9 @@
                 <h5 class="fw-lighter">งานเภสัชกรรม โรงพยาบาลศรีนครินทร์</h5>
             </div>
             <form>
-                <div class="card">
                     <div class="card-body">        
                         <h4 class="fw-bold text-center"> แบบฟอร์ม"....."</h4>
-                    
-                        </div class="mb-3">
+                        <div class="mb-3">
                             <h6 class="fw-bold">ข้อมูลยา</h6>
                             <div class="form-group row">
                                 <label for="medicineName"
@@ -129,8 +159,8 @@
                         
                         <div class="row">
                             <label for="medicineReason" 
-                                class="col-form-label">เหตุผลที่ไม่สามารถใช้ยาในบัญชีหลักแห่งชาติ</label>
-                            <div class="col-md-9">
+                                class="col-form-label" style="margin-left: 60px; margin-bottom: 15px;">เหตุผลที่ไม่สามารถใช้ยาในบัญชีหลักแห่งชาติ</label>
+                            <div class="col-md-9" style="margin-left: 100px;">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="medicineReason"
                                         id="choice1Reason" value="Direct" required>
@@ -164,6 +194,11 @@
                             </div>
                         </div>
                     </div>
+                    <div class="text-center">
+                    <label type="button" class="before">ก่อนหน้า</label>
+                    <label type="button" class="next">ถัดไป</label>
+                    </div>
+                    <h5 class="fw-bold text-end">หน้าที่ 2/3</h5>
                 </div>
             </form>
         </div>
