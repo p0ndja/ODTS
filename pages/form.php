@@ -1,8 +1,19 @@
+<?php if (!isLogin()) header('Location: ../login/'); ?>
 <div class="container">
+    <div class="row justify-content-center align-items-center">
+        <div class="col">
             <div class="card mt-5 mb-5 h-100">
                 <div class="card-body">
-                    <form method="POST" action="#SubmitForm">
-                        <h4 class="font-weight-bold text-center">แบบฟอร์ม "....."</h4>
+                    <form method="POST" action="../pages/form_save.php">
+
+                        <!-- All form need to specific what flow -->
+                        <input type="hidden" name="form_flow[]" value=0/>
+                        <input type="hidden" name="form_flow[]" value=1/>
+                        <input type="hidden" name="form_flow[]" value=2/>
+                        <input type="hidden" name="form_flow[]" value=3/>
+                        <input type="hidden" name="form_flow[]" value=4/>          
+
+                        <h3 class="font-weight-bold text-center">แบบฟอร์มการขอใช้ยาเฉพาะรายที่ไม่มีในเภสัชตำหรับโรงพยาบาล</h3>
                         <div class="mb-3">
                             <h6 class="font-weight-bold">ข้อมูลแพทย์ผู้ใช้ยา</h6>
                             <div class="form-group row">
@@ -140,13 +151,6 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="medicineTimeUse"
-                                    class="col-md-3 col-form-label text-md-right">จำนวนครั้งที่ใช้</label>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control" id="medicineTimeUse" name="medicineTimeUse" required>
-                                </div>
-                            </div>
-                            <div class="form-group row">
                                 <label for="allTimeMed"
                                     class="col-md-3 col-form-label text-md-right">ระยะเวลาทั้งหมด</label>
                                 <div class="col-md-9">
@@ -198,8 +202,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="text-center"><button type="submit" class="btn btn-success">Submit</button></div>
+                        <div class="text-center"><button type="submit" class="btn btn-success" name="form_submit" value="default">Submit</button></div>
                     </form>
                 </div>
             </div>
+        </div>
+    </div>
 </div>
