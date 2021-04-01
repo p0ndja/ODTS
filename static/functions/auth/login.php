@@ -14,9 +14,9 @@ if (isset($_POST['method']) && $_POST['method'] == 'loginPage') {
         $_SESSION['swal_success_msg'] = "ยินดีต้อนรับ! " . $login->getName();
     
         if (isset($_POST['method'])) {
-            if ($_POST['method'] == "loginPage") header("Location: ../../../home/");
+            if ($_POST['method'] == "loginPage") header("Location: ../../../status/");
             else if ($_POST['method'] == "loginNav") back();
-            else header("Location: ../../../home/");
+            else header("Location: ../../../status/");
         } else {
             back();
         }
@@ -45,7 +45,7 @@ if (isset($_POST['method']) && $_POST['method'] == 'loginPage') {
     }
     
     $id = latestIncrement($dbdatabase, 'user', $conn);
-    if ($stmt = $conn -> prepare("INSERT INTO `user` (id, username, password, displayname, email) VALUES (?,?,?,?,?)")) {
+    if ($stmt = $conn -> prepare("INSERT INTO `user` (id, username, password, name, email) VALUES (?,?,?,?,?)")) {
         $stmt->bind_param('issss', $id, $user, $pass, $name, $email);
         if (!$stmt->execute()) {
             $_SESSION['swal_error'] = "พบข้อผิดพลาด";
