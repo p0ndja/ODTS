@@ -98,16 +98,52 @@
         return false;
     }
 
-    function status($state) {
+    function state($state) {
         switch($state) {
             case 0:
-                return "รอดำเนินการ";
+                return Event::STATE_GET_REQUEST;
             case 1:
-                return "กำลังดำเนินการ";
+                return Event::STATE_HEAD_UNIT;
             case 2:
-                return "ดำเนินการเสร็จสิ้น";
+                return Event::STATE_HEAD_DEPARTMENT;
+            case 3:
+                return Event::STATE_HEAD_PHARMACY_DEPARTMENT;
+            case 4:
+                return Event::STATE_HEAD_HOSPITAL;
             default:
                 return "-";
+        }
+    }
+
+    function status($status) {
+        switch($status) {
+            case -9:
+                return Event::STATE_REJECT;
+            case -1:
+                return Event::STATE_RECHECK;
+            case 0:
+                return Event::STATE_WAIT;
+            case 1:
+                return Event::STATE_WORKING;
+            case 9:
+                return Event::STATE_DONE;
+        }
+    }
+
+    function status_color($status) {
+        switch($status) {
+            case -9:
+                return "danger";
+            case 9:
+                return "success";
+            case -1:
+                return "warning";
+            case 0:
+                return "warning";
+            case 1:
+                return "warning";
+            default:
+                return "light";
         }
     }
 ?>
