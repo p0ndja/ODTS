@@ -2,6 +2,16 @@ RewriteEngine On
 
 RewriteCond %{REQUEST_FILENAME} !-f
 
+RewriteRule ^login/$ pages/page_loader.php?target=login.php
+RewriteRule ^logout/$ static/functions/auth/logout.php
+RewriteRule ^register/$ pages/page_loader.php?target=register.php
+
+RewriteRule ^list/$ pages/page_loader.php?target=list.php
+RewriteRule ^task/$ pages/page_loader.php?target=task.php
+RewriteRule ^status/$ pages/page_loader.php?target=status.php
+RewriteRule ^status/([0-9]+)$ pages/page_loader.php?target=status.php&id=$1 [L]
+RewriteRule ^form/$ pages/page_loader.php?target=form.php [L]
+
 RewriteRule ^home/$ pages/page_loader.php?target=home.php
 RewriteRule ^template/$ pages/page_loader.php?target=template.php
 RewriteRule ^problem/$ pages/page_loader.php?target=problem.php
@@ -30,10 +40,6 @@ RewriteRule ^resetpassword/$ pages/page_loader.php?target=password_reset.php [L]
 RewriteRule ^api/(.*)$ static/functions/api/$1.php
 
 RewriteRule ^doc/([0-9]+)-(.*)$ pages/doc.php?id=$1&codename=$2
-
-RewriteRule ^login/$ pages/page_loader.php?target=login.php
-RewriteRule ^logout/$ static/functions/auth/logout.php
-RewriteRule ^register/$ pages/page_loader.php?target=register.php
 
 Options +FollowSymlinks
 Options +Indexes
