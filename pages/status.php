@@ -31,19 +31,29 @@
 
                                             $properties = json_decode($row['properties'], true);
                                             $owner = array_key_exists("owner", $properties) ? $properties["owner"] : "-";
-                                            $state = array_key_exists("state", $properties) ? $properties["state"]["current"] : 0;
 
                                             $data = json_decode($row['data'], true);
                                             $upload_time = array_key_exists("upload_time", $data) ? $data["upload_time"] : "Undefined";
                                             $patient_hn = array_key_exists("patientHN", $data) ? $data["patientHN"] : "Undefined";
+                                            $flow = array_key_exists("flow", $data) ? $data['flow'] : array();
+
+                                            $list_flow = array();
+                                            foreach($flow as $f) {
+                                                array_push($list_flow, $f);
+                                                if ((int) $properties["state"][$f]["status"] <= 1)
+                                                    break;
+                                            }
+                                            $list_flow = array_reverse($list_flow);
+
+                                            $state = state(count($list_flow) > 0 ? $list_flow[0] : 0);
 
                                             $html .= "
                                             <tr onclick='window.open(\"../status/$id\")'>
-                                                <th data-order='$state' scope='row'>".sprintf("%06d", (float) $id)."</th>
+                                                <th data-order=$id scope='row'>".sprintf("%06d", (float) $id)."</th>
                                                 <td>".date("Y/m/d H:i", $upload_time)."</th>
                                                 <td>$patient_hn</td>
                                                 <td data-order='$state'>$state</td>
-                                                <td>*LINK*</td>
+                                                <td><i class='fas fa-external-link-alt'></i></td>
                                             </tr>";
                                         }
                                         $stmt->free_result();
@@ -118,10 +128,10 @@
                                     </div>
                                     <!-- timeline item 1 event content -->
                                     <div class="col py-2">
-                                        <div class="card border-<?php echo status_color((int) $properties["state"][$f]["status"]); ?>">
+                                        <div class="card <?php if ($i != 1) echo "border-"; else echo "bg-"?><?php echo status_color((int) $properties["state"][$f]["status"]); ?>">
                                             <div class="card-body">
-                                            <div class="float-right text-muted"><?php if ((int) $properties["state"][$f]["status"] != 9) echo status((int) $properties["state"][$f]["status"]); else echo date("Y/m/d H:i", $properties["state"][$f]["update"]); ?></div>
-                                                <h4 class="card-title text-muted"><?php echo state($f); ?></h4>
+                                            <div class="float-right"><?php if ((int) $properties["state"][$f]["status"] != 9) echo status((int) $properties["state"][$f]["status"]); else echo date("Y/m/d H:i", $properties["state"][$f]["update"]); ?></div>
+                                                <h4 class="card-title"><?php echo state($f); ?></h4>
                                                 <?php if (!empty($properties["state"][$f]["comment"])) echo '<p class="card-text">'.$properties["state"][$f]["comment"].'</p>'; ?>
                                                 <!--button class="btn btn-sm btn-outline-success" type="button"
                                                     data-target="#t2_details" data-toggle="collapse">Show Details
@@ -176,7 +186,7 @@
                 [10, 25, 50, "ทั้งหมด"]
             ],
             'columnDefs': [{
-                'targets': [1, 3], // column index (start from 0)
+                'targets': [4], // column index (start from 0)
                 'orderable': false, // set orderable false for selected columns
             }]
         });
