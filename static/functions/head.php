@@ -44,9 +44,7 @@
     
     <!-- Custom Style -->
     <link href="../static/style.css" rel="stylesheet">
-    <link href="../static/dark-mode.css" rel="stylesheet">
     <link href="../static/simple-sidebar.css" rel="stylesheet">
-    <?php if (isDarkmode()) { ?><link href="../static/dataTable-dark-mode.css" rel="stylesheet"><?php } ?>
     
     <!-- Bootstrap -->
     <script src="../vendor/1.16.0-popper.min.js"></script>

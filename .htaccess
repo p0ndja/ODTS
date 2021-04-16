@@ -9,7 +9,7 @@ RewriteRule ^register/$ pages/page_loader.php?target=register.php
 RewriteRule ^list/$ pages/page_loader.php?target=list.php
 RewriteRule ^task/$ pages/page_loader.php?target=task.php
 RewriteRule ^status/$ pages/page_loader.php?target=status.php
-RewriteRule ^status/([0-9]+)$ pages/page_loader.php?target=status.php&id=$1 [L]
+RewriteRule ^status/([0-9]+)$ pages/page_loader.php?target=status_id.php&id=$1 [L]
 RewriteRule ^form/$ pages/page_loader.php?target=form.php [L]
 
 RewriteRule ^home/$ pages/page_loader.php?target=home.php

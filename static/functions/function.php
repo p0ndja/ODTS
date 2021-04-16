@@ -39,6 +39,10 @@
         return isset($_SESSION['user']);
     }
 
+    function beautiDate(int $time) {
+        return ((int) date("d ", $time)) . " " . Event::MONTH[(int) date("m", $time) - 1] . " " . ((int) date(" Y ", $time) + 543) . date(" H:i", $time);
+    }
+
     function isAdmin() {
         if (!isLogin()) return false;
         return $_SESSION['user']->isAdmin();
@@ -110,9 +114,25 @@
                 return Event::STATE_HEAD_PHARMACY_DEPARTMENT;
             case 4:
                 return Event::STATE_HEAD_HOSPITAL;
+            case 5:
+                return Event::STATE_FINAL;
             default:
                 return "-";
         }
+    }
+
+    function state_status_image(int $state, int $status) {
+        $s = "../static/elements/status/";
+        //State 0
+        if ($state == 0)
+            return $s . $state . ".png";
+        
+        //State 1-5
+        if ($status == -1 || $status == 1)
+            return $s . $state . "_1.png";
+        if ($status == 0)
+            return $s . $state . ".png";
+        return $s . $state . "_$status.png";
     }
 
     function status($status) {
@@ -130,7 +150,7 @@
         }
     }
 
-    function status_color($status) {
+    function status_color(int $status) {
         switch($status) {
             case -9:
                 return "danger";
@@ -145,6 +165,16 @@
             default:
                 return "light";
         }
+    }
+
+    function status_color_2(int $status) {
+        if ($status == 9)
+            return "green accent-1";
+        if ($status == -1)
+            return "orange lighten-4";
+        if ($status == -9)
+            return "red lighten-4";
+        return "";
     }
 ?>
 <?php

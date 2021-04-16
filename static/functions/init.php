@@ -22,16 +22,19 @@
         const STATE_WAIT = "รอดำเนินการ";
         const STATE_WORKING = "กำลังดำเนินการ";
         const STATE_DONE = "ดำเนินการเรียบร้อยแล้ว";
-        const STATE_REJECT = "ปฏิเสธ";
+        const STATE_REJECT = "ไม่อนุมัติ";
         const STATE_RECHECK = "ต้องการข้อมูลเพิ่มเติม";
         
         const STATE_MSG_APPROVED = "อนุมัติ";
 
         const STATE_GET_REQUEST = "รับคำร้องและเอกสาร";
-        const STATE_HEAD_UNIT = "หัวหน้าหน่วยของภาควิชา";
-        const STATE_HEAD_DEPARTMENT = "หัวหน้าภาควิชา";
-        const STATE_HEAD_PHARMACY_DEPARTMENT = "หัวหน้างานเภสัชกรรม";
-        const STATE_HEAD_HOSPITAL = "ผู้อำนวยการ";
+        const STATE_HEAD_UNIT = "หัวหน้าหน่วยของภาควิชาอนุมัติ";
+        const STATE_HEAD_DEPARTMENT = "หัวหน้าภาควิชาอนุมัติ";
+        const STATE_HEAD_PHARMACY_DEPARTMENT = "หัวหน้างานเภสัชกรรมอนุมัติ";
+        const STATE_HEAD_HOSPITAL = "ผู้อำนวยการอนุมัติ";
+        const STATE_FINAL = "อนุมัติการจัดหายา";
+        const MONTH = array("มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน","พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม","กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม");
+        const DAY = array ( "อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัส", "ศุกร์", "เสาร์" );
     }
 
     abstract class ErrorMessage {
