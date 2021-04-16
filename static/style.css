@@ -483,12 +483,21 @@
         opacity: 30%;
     }
 
-    .sidenavGreen { 
+    .sidenavGreen:not(.current){ 
         color: white !important;
         background-color: rgba(76,175,80) !important;
+    }
+
+    .sidenavGreen.current { 
+        color: white !important;
+        background-color: rgb(54, 134, 57) !important;
     }
 
     .sidenavGreen:hover { 
         color: white !important;
         background-color: rgb(70, 160, 73) !important;
+    }
+    .sidenavGreen.current:hover { 
+        color: white !important;
+        background-color: rgb(46, 114, 48) !important;
     }
