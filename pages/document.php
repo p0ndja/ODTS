@@ -2,7 +2,15 @@
 <div class="container">
     <div class="card mt-5">
         <div class="card-body">
-            <h3 class="font-weight-bold text-center">รายการเอกสารที่ยื่นเรื่อง</h3>
+            <?php 
+            $mode = isset($_GET['mode']) ? $_GET['mode'] : "me";
+            $title = "รายการเอกสารที่ถูกยื่นเรื่องโดยคุณ";
+            if ($mode == "all")
+                $title = "รายการเอกสารทั้งหมด";
+            else if ($mode == "task")
+                $title = "รายการเอกสารที่รอดำเนินการโดยคุณ";
+            ?>
+            <h3 class="font-weight-bold text-center"><?php echo $title; ?></h3>
             <div class="table-responsive">
                 <table class="table table-sm table-hover w-100 d-block d-md-table text-nowrap" id="statusTable">
                     <thead>
@@ -45,7 +53,7 @@
                                     }
 
                                     $html .= "
-                                    <tr class='".status_color_2($status)."' onclick='window.open(\"../status/$id\")'>
+                                    <tr class='".status_color_2($status)."' onclick='window.location.replace(\"../status/$id\")'>
                                         <th data-order=$id scope='row'>".sprintf("%06d", (float) $id)."</th>
                                         <td>$upload_time</th>
                                         <td>$patient_hn</td>

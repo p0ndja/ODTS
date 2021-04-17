@@ -8,8 +8,12 @@ RewriteRule ^register/$ pages/page_loader.php?target=register.php
 
 RewriteRule ^list/$ pages/page_loader.php?target=list.php
 RewriteRule ^task/$ pages/page_loader.php?target=task.php
-RewriteRule ^status/$ pages/page_loader.php?target=status.php
-RewriteRule ^status/([0-9]+)$ pages/page_loader.php?target=status_id.php&id=$1 [L]
+RewriteRule ^document/all$ pages/page_loader.php?target=document.php&mode=all [L]
+RewriteRule ^document/task$ pages/page_loader.php?target=document.php&mode=task [L]
+RewriteRule ^document/(.*)$ pages/page_loader.php?target=document.php&mode=me
+RewriteRule ^status/([0-9]+)$ pages/page_loader.php?target=document_status_id.php&id=$1 [L]
+RewriteRule ^view/([0-9]+)$ pages/page_loader.php?target=document_id.php&id=$1 [L]
+RewriteRule ^edit/([0-9]+)$ pages/page_loader.php?target=document_edit.php&id=$1 [L]
 RewriteRule ^form/$ pages/page_loader.php?target=form.php [L]
 
 RewriteRule ^home/$ pages/page_loader.php?target=home.php

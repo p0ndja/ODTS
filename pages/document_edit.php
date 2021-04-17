@@ -1,9 +1,37 @@
-<?php if (!isLogin()) header('Location: ../login/'); ?>
+<?php
+    if (!isLogin()) header('Location: ../login/');
+    if (!isset($_GET['id'])) header("Location: ../document/");
+?>
 <div class="container">
     <div class="row justify-content-center align-items-center">
         <div class="col">
             <div class="card mt-5 mb-5">
                 <div class="card-body">
+                    <?php
+                        $id = (int) $_GET['id'];
+                        $sessionid = $_SESSION['user']->getID();
+
+                        $doc = new Document($id);
+                        if ($doc->getID() == -1) header("Location: ../document/"); //Invalid Document ID
+
+                        $owner = $doc->getProperties("owner");
+                        $state = $doc->getProperties("state");
+
+                        $upload_time = $doc->getData("upload_time");
+                        $patient_hn = $doc->getData("patientHN");
+                        $doctor_name = $doc->getData("doctorName");
+                        $flow = $doc->getData("flow");
+
+                        $last_state = 5;
+                        $list_flow = array();
+                        foreach($flow as $f) {
+                            array_push($list_flow, $f);
+                            if ((int) $state[$f]["status"] != 9) {
+                                $last_state = $f;
+                                break;
+                            }
+                        }
+                    ?>
                     <form method="POST" action="../pages/form_save.php" id="form">
                         <!-- All form need to specific what flow -->
                         <input type="hidden" name="form_flow[]" value=0 />
@@ -15,30 +43,28 @@
 
                         <h3 class="font-weight-bold text-center">
                             แบบฟอร์มการขอใช้ยาเฉพาะรายที่ไม่มีในเภสัชตำหรับโรงพยาบาล</h3>
-                            <div class="alert alert-warning">* จำเป็นต้องกรอกข้อมูลและเลือกหัวข้อให้ครบทุกจุด</div>
+                        <div class="alert alert-warning">* จำเป็นต้องกรอกข้อมูลและเลือกหัวข้อให้ครบทุกจุด</div>
                         <div class="mb-3">
                             <h6 class="font-weight-bold">ข้อมูลแพทย์ผู้ใช้ยา</h6>
                             <div class="form-group row">
                                 <label for="doctorName"
                                     class="col-md-3 col-form-label text-md-right">ชื่อ-สกุลแพทย์</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" id="doctorName" name="doctorName" required>
+                                    <input type="text" class="form-control" id="doctorName" name="doctorName" required value="<?php echo $doc->getData("doctorName"); ?>">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="doctorDivision"
                                     class="col-md-3 col-form-label text-md-right">ภาควิชา</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" id="doctorDivision" name="doctorDivision"
-                                        required>
+                                    <input type="text" class="form-control" id="doctorDivision" name="doctorDivision" required  value="<?php echo $doc->getData("doctorDivision"); ?>">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="doctorTelephone"
                                     class="col-md-3 col-form-label text-md-right">โทรศัพท์</label>
                                 <div class="col-md-9">
-                                    <input type="tel" class="form-control" id="doctorTelephone" name="doctorTelephone"
-                                        pattern="[0-9]{10}" required>
+                                    <input type="tel" class="form-control" id="doctorTelephone" name="doctorTelephone" pattern="[0-9]{10}" required value="<?php echo $doc->getData("doctorTelephone");?>">
                                 </div>
                             </div>
                         </div>
@@ -49,29 +75,25 @@
                                 <label for="patientName"
                                     class="col-md-3 col-form-label text-md-right">ชื่อ-สกุลผู้ป่วย</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" id="patientName" name="patientName"
-                                        required>
+                                    <input type="text" class="form-control" id="patientName" name="patientName" required value="<?php echo $doc->getData('patientName'); ?>">
                                 </div>
                                 <label for="patientHN" class="col-md-1 col-form-label text-md-right">HN</label>
                                 <div class="col-md-2">
-                                    <input type="text" class="form-control" id="patientHN" name="patientHN" required>
+                                    <input type="text" class="form-control" id="patientHN" name="patientHN" required value="<?php echo $doc->getData('patientHN'); ?>">
                                 </div>
                             </div>
                             <div class="form-group row text-nowrap">
                                 <label for="patientAge" class="col-md-3 col-form-label text-md-right">อายุ</label>
                                 <div class="col-md-2">
-                                    <input type="number" class="form-control" min="0" id="patientAge" name="patientAge"
-                                        required>
+                                    <input type="number" class="form-control" min="0" id="patientAge" name="patientAge" required value="<?php echo $doc->getData('patientAge'); ?>">
                                 </div>
                                 <label for="patientWeight" class="col-md-1 col-form-label text-md-right">น้ำหนัก</label>
                                 <div class="col-md-2">
-                                    <input type="number" class="form-control" min="0" id="patientWeight"
-                                        name="patientWeight" required>
+                                    <input type="number" class="form-control" min="0" id="patientWeight" name="patientWeight" required value="<?php echo $doc->getData('patientWeight'); ?>">
                                 </div>
                                 <label for="patientHeight" class="col-md-1 col-form-label text-md-right">ส่วนสูง</label>
                                 <div class="col-md-2">
-                                    <input type="number" class="form-control" min="0" id="patientHeight"
-                                        name="patientHeight" required>
+                                    <input type="number" class="form-control" min="0" id="patientHeight" name="patientHeight" required value="<?php echo $doc->getData('patientHeight'); ?>">
                                 </div>
                             </div>
                             <div class="row">
@@ -80,8 +102,7 @@
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-12 col-md-8">
-                                            <input type="range" class="custom-range" id="patientECOG" min="0" max="5"
-                                                step="1" value="0" id="patientECOG" name="patientECOG" required>
+                                            <input type="range" class="custom-range" min="0" max="5" step="1" id="patientECOG" name="patientECOG" value="<?php echo $doc->getData('patientECOG'); ?>">
                                         </div>
                                         <div class="col-12 col-md-4">
                                             <span class="font-weight-bold text-primary ml-2 valueSpan2"></span>
@@ -129,8 +150,8 @@
                                                 $valueSpan.addClass(color($value.val()));
                                                 $valueSpan.html(msg($value.val()));
                                             });
-                                            $valueSpan.addClass("text-success");
-                                            $valueSpan.html("0 - ปกติ");
+                                            $valueSpan.html(msg(<?php echo $doc->getData('patientECOG'); ?>))
+                                            $valueSpan.addClass(color(<?php echo $doc->getData('patientECOG'); ?>));
                                         });
                                     </script>
                                 </div>
@@ -175,6 +196,13 @@
                                         <input type="text" class="form-control ml-2" id="hiddenOtherField"
                                             name="patientPayerOther" disabled />
                                         <script>
+                                            $("#patientPayer<?php echo $doc->getData('patientPayer'); ?>").attr('checked','checked');
+                                            if ("<?php echo $doc->getData('patientPayerOther');?>" != null) {
+                                                $("#hiddenOtherField").removeAttr("disabled");
+                                                $("#hiddenOtherField").val("<?php echo $doc->getData('patientPayerOther'); ?>");
+                                            }
+                                        </script>
+                                        <script>
                                             $("input[type=radio]").change(function () {
                                                 $("#hiddenOtherField").val("");
                                                 if (this.value == "Oth") {
@@ -194,8 +222,7 @@
                                 <label for="medicineName"
                                     class="col-md-3 col-form-label text-md-right">ชื่อยาและความแรง</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" id="medicineName" name="medicineName"
-                                        required>
+                                    <input type="text" class="form-control" id="medicineName" name="medicineName" required value="<?php echo $doc->getData("medicineName"); ?>">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -203,30 +230,28 @@
                                     class="col-md-3 col-form-label text-md-right">ขนาดยาที่ใช้ต่อครั้ง</label>
                                 <div class="col-md-9">
                                     <input type="text" class="form-control" id="medicineQuantity"
-                                        name="medicineQuantity" required>
+                                        name="medicineQuantity" required value="<?php echo $doc->getData("medicineQuantity"); ?>">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="medicineTimeUse"
                                     class="col-md-3 col-form-label text-md-right">จำนวนครั้งที่ใช้</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" id="medicineTimeUse" name="medicineTimeUse"
-                                        required>
+                                    <input type="text" class="form-control" id="medicineTimeUse" name="medicineTimeUse" required value="<?php echo $doc->getData('medicineTimeUse'); ?>">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="allTimeMed"
                                     class="col-md-3 col-form-label text-md-right">ระยะเวลาทั้งหมด</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" id="allTimeMed" name="allTimeMed" required>
+                                    <input type="text" class="form-control" id="allTimeMed" name="allTimeMed" required value="<?php echo $doc->getData('allTimeMed'); ?>">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="medicinePay"
                                     class="col-md-3 col-form-label text-md-right">ราคายาทั้งหมด</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" id="medicinePay" name="medicinePay"
-                                        required><br>
+                                    <input type="text" class="form-control" id="medicinePay" name="medicinePay" required value="<?php echo $doc->getData('medicinePay'); ?>"><br>
                                 </div>
                             </div>
 
@@ -235,7 +260,7 @@
                                 <label for="medicineReason" class="col-form-label"
                                     style="margin-left: 60px; margin-bottom: 15px;">เหตุผลที่ไม่สามารถใช้ยาในบัญชีหลักแห่งชาติ</label>
                                 <div class="col-md-9" style="margin-left: 100px;">
-                                <div class="form-check">
+                                    <div class="form-check">
                                         <input class="form-check-input" type="radio" name="medicineReason"
                                             id="choice1Reason" value="1" required>
                                         <label class="form-check-label"
@@ -274,13 +299,16 @@
                                         <label class="form-check-label" for="choice6Reason">ผู้ป่วยแสดงความจำนงต้องการ
                                             (เบิกไม่ได้)</label>
                                     </div>
+                                    <script>
+                                        $("#choice<?php echo $doc->getData('medicineReason'); ?>Reason").attr('checked','checked');
+                                    </script>
                                 </div>
                             </div>
                         </div>
                     </form>
                     <div class="text-center">
-                        <a href="../" class="btn btn-danger" id="form_reset">ยกเลิก</a>
-                        <button class="btn btn-success" name="form_submit" id="form_submit" value="default">ยื่นคำร้อง</button>
+                        <a href="../view/<?php echo $id; ?>" class="btn btn-danger" id="form_reset">ยกเลิก</a>
+                        <button class="btn btn-success" name="form_submit" id="form_submit" value="default">บันทึกการเปลี่ยนแปลง</button>
                     </div>
                     <script>
                         $("#form_submit").click(function () {

@@ -14,9 +14,9 @@ if (isset($_POST['method']) && $_POST['method'] == 'loginPage') {
         $_SESSION['swal_success_msg'] = "ยินดีต้อนรับ! " . $login->getName();
     
         if (isset($_POST['method'])) {
-            if ($_POST['method'] == "loginPage") header("Location: ../../../status/");
+            if ($_POST['method'] == "loginPage") header("Location: ../../../document/");
             else if ($_POST['method'] == "loginNav") back();
-            else header("Location: ../../../status/");
+            else header("Location: ../../../document/");
         } else {
             back();
         }

@@ -44,6 +44,6 @@
         }
 
         print_r($_POST);
-        header("Location: ../status/");
+        header("Location: ../document/");
     }
 ?>

@@ -33,20 +33,26 @@
                     <small class="text-pharm">งานเภสัชกรรม โรงพยาบาลศรีนครินทร์</small>
                 </div>
                 <div class="list-group list-group-flush w-100">
-                    <a href="../status/"
-                        class="list-group-item list-group-item-action sidenavGreen <?php echo isCurrent("/status/"); ?>">ติดตามสถานะเอกสาร</a>
+                    <a href="../document/"
+                        class="list-group-item list-group-item-action sidenavGreen <?php echo isCurrentEndWith("/document/"); ?>">ติดตามสถานะเอกสาร</a>
                     <a href="../form/"
                         class="list-group-item list-group-item-action sidenavGreen <?php echo isCurrent("/form/"); ?>">กรอกแบบฟอร์มขอใช้ยา</a>
                     <!--?php if (isAdmin()) { ?-->
-                    <a href="../list/"
-                        class="list-group-item list-group-item-action sidenavGreen <?php echo isCurrent("/list/"); ?>">รายการเอกสาร</a>
-                    <a href="../task/"
-                        class="list-group-item list-group-item-action sidenavGreen <?php echo isCurrent("/task/"); ?>">เอกสารรอรับรอง</a>
+                    <a href="../document/all"
+                        class="list-group-item list-group-item-action sidenavGreen <?php echo isCurrent("/document/all"); ?>">รายการเอกสาร</a>
+                    <a href="../document/task"
+                        class="list-group-item list-group-item-action sidenavGreen <?php echo isCurrent("/document/task"); ?>">เอกสารรอรับรอง</a>
                     <!--?php } ?-->
                     <br>
                 </div>
             </div>
-            <?php function isCurrent(String $url) {
+            <?php 
+            function isCurrentEndWith(String $url) {
+                global $current_url;
+                if (str_ends_with($current_url, $url))
+                    return "current";
+            }
+            function isCurrent(String $url) {
                 global $current_url;
                 if (str_contains($current_url, $url))
                     return "current";
@@ -63,7 +69,7 @@ $(document).ready(function() {
         $("body").css('overflow-y', 'hidden');
         $("body").css('height', '100vh');
     });
-    $('#sidenav').on('hide.bs.modal', function (e) {
+    $('#sidenav').on('hidden.bs.modal', function (e) {
         $("body").css('overflow-y', '');
         $("body").css('height', '');
     });
