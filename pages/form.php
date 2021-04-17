@@ -2,9 +2,9 @@
 <div class="container">
     <div class="row justify-content-center align-items-center">
         <div class="col">
-            <div class="card mt-5 mb-5 h-100">
+            <div class="card mt-5 mb-5">
                 <div class="card-body">
-                    <form method="POST" action="../pages/form_save.php">
+                    <form method="POST" action="../pages/form_save.php" id="form">
                         <!-- All form need to specific what flow -->
                         <input type="hidden" name="form_flow[]" value=0 />
                         <input type="hidden" name="form_flow[]" value=1 />
@@ -264,9 +264,40 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-center"><button type="submit" class="btn btn-success" name="form_submit"
-                                    value="default">Submit</button></div>
+                        </div>
                     </form>
+                    <div class="text-center">
+                        <a href="../" class="btn btn-danger" id="form_reset">ยกเลิก</a>
+                        <button class="btn btn-success" name="form_submit" id="form_submit" value="default">ยื่นคำร้อง</button>
+                    </div>
+                    <script>
+                        $("#form_submit").click(function () {
+                            if ($("#form")[0].checkValidity()) {
+                                swal({
+                                    title: "ท่านได้ตรวจสอบและยืนยันว่าข้อมูลทั้งหมดถูกต้องตามความเป็นจริง",
+                                    icon: "warning",
+                                    buttons: true,
+                                    dangerMode: true
+                                }).then((willDelete) => {
+                                    if (willDelete) {
+                                        $("#form").submit();
+                                    }
+                                });
+                            } else {
+                                swal({
+                                    title: "พบข้อผิดพลาด",
+                                    text: "กรุณากรอกข้อมูลให้ครบในทุกช่องที่จำเป็น",
+                                    icon: "warning",
+                                    buttons: true,
+                                    dangerMode: true
+                                }).then((willDelete) => {
+                                    if (willDelete) {
+                                        $("#form").submit();
+                                    }
+                                });
+                            }
+                        });
+                    </script>
                 </div>
             </div>
         </div>

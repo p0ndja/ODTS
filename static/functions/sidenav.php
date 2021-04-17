@@ -1,4 +1,4 @@
-<div class="bg-white z-depth-2 " id="sidebar-wrapper" style="max-width: 240px; ">
+<div class="bg-white z-depth-2 " id="sidebar-wrapper" style="max-width: 240px;">
     <div class="sidebar-heading bg-white">
         <img src="../static/elements/logo/android-icon-192x192.png" width="192"/>
     </div>

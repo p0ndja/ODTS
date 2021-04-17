@@ -1,6 +1,7 @@
 <?php require_once 'connect.php'; ?>
-<nav class="navbar navbar-expand navbar-light bg-white text-dark">
-  <a id="menu-toggle"><i class="fas fa-bars"></i></a>
+<nav class="navbar navbar-expand sticky-top navbar-light bg-white text-dark">
+  <a id="menu-toggle" data-toggle="modal" data-target="#sidenav"><i class="fas fa-bars"></i></a>
+  <div class="ml-2"><img src="../static/elements/logo/logo.png" height=32/></div>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
       <!--
@@ -25,9 +26,3 @@
     </ul>
   </div>
 </nav>
-<script>
-  $("#menu-toggle").click(function (e) {
-    e.preventDefault();
-    $("#wrapper").toggleClass("toggled");
-  });
-</script>
