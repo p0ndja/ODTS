@@ -23,11 +23,13 @@
                         $flow = $doc->getData("flow");
 
                         $last_state = 5;
+                        $last_state_status = 0;
                         $list_flow = array();
                         foreach($flow as $f) {
                             array_push($list_flow, $f);
                             if ((int) $state[$f]["status"] != 9) {
                                 $last_state = $f;
+                                $last_state_status = $state[$f]["status"];
                                 break;
                             }
                         }
@@ -40,10 +42,9 @@
                         <input type="hidden" name="form_flow[]" value=3 />
                         <input type="hidden" name="form_flow[]" value=4 />
                         <input type="hidden" name="form_flow[]" value=5 />
-
+                        <a onclick="javascript:window.history.back();" class="float-left"><i class="fas fa-arrow-left"></i> ย้อนกลับ</a>
                         <h3 class="font-weight-bold text-center">ข้อมูลเอกสาร <span class="badge badge-pharm">#<?php echo sprintf("%06d", (float) ($id)); ?></span></h3>
                         <hr>
-                        <h5 class="font-weight-bold text-center">แบบฟอร์มการขอใช้ยาเฉพาะรายที่ไม่มีในเภสัชตำหรับโรงพยาบาล</h5>
                         <div class="row">
                             <div class="col-12 col-md-4">
                                 <div class="card mb-3">
@@ -53,12 +54,21 @@
                                         <b>ผู้สั่งยา:</b> <?php echo $doctor_name; ?><br>
                                     </div>    
                                 </div>
-                                <a href="../status/<?php echo $id; ?>" class="btn btn-outline-secondary text-dark">ย้อนกลับ</a>
-                                <?php if ($last_state != 5) { ?>
-                                    <a href="../edit/<?php echo $id; ?>" class="btn btn-outline-warning text-dark">แก้ไขข้อมูล</a>
+                                <?php if (isAdmin()) { ?>
+                                <div class="card border-danger mb-3">
+                                    <div class="card-body">
+                                        <label for="comment">ลงความเห็น <small class="text-info">สามารถเว้นว่างได้</small></label>
+                                        <textarea id="comment" name="comment" class="form-control mb-3" rows="4"></textarea>
+                                        <a href="../pages/document_save.php?id=<?php echo $id; ?>" class="btn btn-success btn-block text-dark">ยอมรับคำร้อง (Approve)</a>
+                                        <a href="../pages/document_save.php?id=<?php echo $id; ?>" class="btn btn-warning btn-block text-dark">ร้องขอการแก้ไข (Recheck)</a>
+                                        <a href="../pages/document_save.php?id=<?php echo $id; ?>" class="btn btn-danger btn-block">ปฏิเสธคำร้อง (Reject)</a>
+                                    </div>
+                                </div>
                                 <?php } ?>
                             </div>
                             <div class="col-12 col-md-8 grey lighten-4">
+                                <h5 class="font-weight-bold text-center mt-3 mb-3">แบบฟอร์มการขอใช้ยาเฉพาะรายที่ไม่มีในเภสัชตำหรับโรงพยาบาล</h5>
+                                <hr>
                                 <div class="mb-3 mt-3">
                                     <h6 class="font-weight-bold">ข้อมูลแพทย์ผู้ใช้ยา</h6>
                                     <div class="form-group row">

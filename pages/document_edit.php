@@ -23,14 +23,19 @@
                         $flow = $doc->getData("flow");
 
                         $last_state = 5;
+                        $last_state_status = 0;
                         $list_flow = array();
                         foreach($flow as $f) {
                             array_push($list_flow, $f);
                             if ((int) $state[$f]["status"] != 9) {
                                 $last_state = $f;
+                                $last_state_status = $state[$f]["status"];
                                 break;
                             }
                         }
+
+                        if ($last_state_status != -1)
+                            header("Location: ../status/$id");
                     ?>
                     <form method="POST" action="../pages/form_save.php" id="form">
                         <!-- All form need to specific what flow -->

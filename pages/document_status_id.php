@@ -21,11 +21,13 @@
                 $flow = $doc->getData("flow");
 
                 $last_state = 5;
+                $last_state_status = 0;
                 $list_flow = array();
                 foreach($flow as $f) {
                     array_push($list_flow, $f);
                     if ((int) $state[$f]["status"] != 9) {
                         $last_state = $f;
+                        $last_state_status = $state[$f]["status"];
                         break;
                     }
                 }
@@ -60,7 +62,7 @@
                             </div>
                         </div>
                         <a href="../view/<?php echo $id; ?>" class="btn btn-outline-success text-dark">ดูข้อมูล</a>
-                        <?php if ($last_state != 5) { ?>
+                        <?php if ($last_state != 5 && $last_state_status == -1) { ?>
                             <a href="../edit/<?php echo $id; ?>" class="btn btn-outline-warning text-dark">แก้ไขข้อมูล</a>
                         <?php } ?>
                     </div>
