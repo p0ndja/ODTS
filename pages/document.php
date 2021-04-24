@@ -53,7 +53,7 @@
                                     }
 
                                     $html .= "
-                                    <tr class='".status_color_2($status)."' onclick='window.location.replace(\"../status/$id\")'>
+                                    <tr class='".status_color_2($status)."' onclick='window.location=\"../status/$id\"'>
                                         <th data-order=$id scope='row'>".sprintf("%06d", (float) $id)."</th>
                                         <td>$upload_time</th>
                                         <td>$patient_hn</td>
