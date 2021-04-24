@@ -14,7 +14,13 @@
         $data = json_encode($_POST);
         
         $obform->setProperties("owner", $_SESSION['user']->getID());
-        //No need to update post properties, except owner data.
+        if ($id > 0) {
+            $all_state = $obform->getProperties("state");
+            $all_state[$obform->findLastState()]["status"] = 0;
+            //Change latest state that 'need to update' to 'pending'.
+               
+            $obform->setProperties("state", $all_state);
+        }
         $properties = json_encode($obform->properties()); 
 
         if ($id > 0) {
@@ -24,7 +30,7 @@
                     $_SESSION['swal_error'] = "พบข้อผิดพลาด";
                     $_SESSION['swal_error_msg'] = ErrorMessage::DATABASE_QUERY;
                 } else {
-                    $_SESSION['swal_success'] = "ส่งเอกสารสำเร็จ!";
+                    $_SESSION['swal_success'] = "อัพเดทเอกสารสำเร็จ!";
                 }
             } else {
                 $_SESSION['error'] = ErrorMessage::DATABASE_ERROR;

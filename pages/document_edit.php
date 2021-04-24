@@ -37,7 +37,7 @@
                         if ($last_state_status != -1)
                             header("Location: ../status/$id");
                     ?>
-                    <form method="POST" action="../pages/form_save.php" id="form">
+                    <form method="POST" action="../pages/form_save.php?id=<?php echo $id; ?>" id="form">
                         <!-- All form need to specific what flow -->
                         <input type="hidden" name="form_flow[]" value=0 />
                         <input type="hidden" name="form_flow[]" value=1 />
@@ -310,10 +310,11 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" name="form_submit" value="update"/>
                     </form>
                     <div class="text-center">
                         <a href="../view/<?php echo $id; ?>" class="btn btn-danger" id="form_reset">ยกเลิก</a>
-                        <button class="btn btn-success" name="form_submit" id="form_submit" value="default">บันทึกการเปลี่ยนแปลง</button>
+                        <button class="btn btn-success" id="form_submit">บันทึกการเปลี่ยนแปลง</button>
                     </div>
                     <script>
                         $("#form_submit").click(function () {
