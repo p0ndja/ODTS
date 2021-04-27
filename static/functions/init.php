@@ -167,6 +167,17 @@
             //Don't forget to update data in SQL!
         }
 
+        public function findLastState() {
+            $state = $this->getProperties("state");
+            $flow = $this->getData("flow");
+            foreach($flow as $f) {
+                if ((int) $state[$f]["status"] != 9) {
+                    return $f;
+                }
+            }
+            return 5;
+        }
+
         public function __construct(int $id) {
             $this->id = $id;
             if ($id > 0) {
