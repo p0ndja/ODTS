@@ -8,7 +8,7 @@
             if ($mode == "all")
                 $title = "รายการเอกสารทั้งหมด";
             else if ($mode == "task")
-                $title = "รายการเอกสารที่รอดำเนินการโดยคุณ";
+                $title = "รายการเอกสารที่คุณรับผิดชอบ";
             ?>
             <h3 class="font-weight-bold text-center"><?php echo $title; ?></h3>
             <div class="table-responsive">
@@ -25,10 +25,19 @@
                     <tbody>
                         <?php
                         $html = "";
-                        if ($stmt = $conn -> prepare("SELECT * FROM `document` WHERE JSON_EXTRACT(`properties`,'$.owner') = ? ORDER BY `id` DESC")) {
-                            $sessionid = $_SESSION['user']->getID();
+                        $sessionid = $_SESSION['user']->getID();
+                        $stmt;
+                        if ($mode == "all") {
+                            $stmt = $conn -> prepare("SELECT * FROM `document` ORDER BY `id` DESC");
+                        } else if ($mode == "task") {
+                            $stmt = $conn -> prepare("SELECT * FROM `document` WHERE JSON_EXTRACT(`properties`,'$.state.current') = ? ORDER BY `id` DESC");
+                            $role = $_SESSION['user']->getRole();
+                            $stmt->bind_param("i", $role);
+                        } else {
+                            $stmt = $conn -> prepare("SELECT * FROM `document` WHERE JSON_EXTRACT(`properties`,'$.owner') = ? ORDER BY `id` DESC");
                             $stmt->bind_param("i", $sessionid);
-                            $stmt->execute();
+                        }
+                        if ($stmt->execute()) {
                             $result = $stmt->get_result();
                             if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
@@ -52,8 +61,12 @@
                                         }
                                     }
 
+                                    $targetPath = "../status/";
+                                    if ($mode != "me")
+                                        $targetPath = "../view/";
+
                                     $html .= "
-                                    <tr class='".status_color_2($status)."' onclick='window.location=\"../status/$id\"'>
+                                    <tr class='".status_color_2($status)."' onclick='window.location=\"$targetPath$id\"'>
                                         <th data-order=$id scope='row'>".sprintf("%06d", (float) $id)."</th>
                                         <td>$upload_time</th>
                                         <td>$patient_hn</td>
@@ -65,6 +78,8 @@
                                 $stmt->close();  
                             }
                             echo $html;
+                        } else {
+                            echo "<div class='alert alert-danger'>" . ErrorMessage::DATABASE_QUERY . "</div>";
                         }
                     ?>
                     </tbody>

@@ -33,16 +33,17 @@
                     <small class="text-pharm">งานเภสัชกรรม โรงพยาบาลศรีนครินทร์</small>
                 </div>
                 <div class="list-group list-group-flush w-100">
+                    <?php if (isLogin() && $_SESSION['user']->getRole() != 0 || isAdmin()) { ?>
+                    <a href="../document/all"
+                        class="list-group-item list-group-item-action sidenavGreen <?php echo isCurrent("/document/all"); ?>">รายการเอกสารทั้งหมด</a>
+                    <a href="../document/task"
+                        class="list-group-item list-group-item-action sidenavGreen <?php echo isCurrent("/document/task"); ?>">เอกสารที่รับผิดชอบ</a>
+                    <?php } else { ?>
                     <a href="../document/"
                         class="list-group-item list-group-item-action sidenavGreen <?php echo isCurrentEndWith("/document/"); ?>">ติดตามสถานะเอกสาร</a>
                     <a href="../form/"
                         class="list-group-item list-group-item-action sidenavGreen <?php echo isCurrent("/form/"); ?>">กรอกแบบฟอร์มขอใช้ยา</a>
-                    <!--?php if (isAdmin()) { ?-->
-                    <a href="../document/all"
-                        class="list-group-item list-group-item-action sidenavGreen <?php echo isCurrent("/document/all"); ?>">รายการเอกสาร</a>
-                    <a href="../document/task"
-                        class="list-group-item list-group-item-action sidenavGreen <?php echo isCurrent("/document/task"); ?>">เอกสารรอรับรอง</a>
-                    <!--?php } ?-->
+                    <?php } ?>
                     <br>
                 </div>
             </div>

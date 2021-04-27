@@ -34,14 +34,6 @@
                             }
                         }
                     ?>
-                    <form id="form">
-                        <!-- All form need to specific what flow -->
-                        <input type="hidden" name="form_flow[]" value=0 />
-                        <input type="hidden" name="form_flow[]" value=1 />
-                        <input type="hidden" name="form_flow[]" value=2 />
-                        <input type="hidden" name="form_flow[]" value=3 />
-                        <input type="hidden" name="form_flow[]" value=4 />
-                        <input type="hidden" name="form_flow[]" value=5 />
                         <a onclick="javascript:window.history.back();" class="float-left"><i class="fas fa-arrow-left"></i> ย้อนกลับ</a>
                         <h3 class="font-weight-bold text-center">ข้อมูลเอกสาร <span class="badge badge-pharm">#<?php echo sprintf("%06d", (float) ($id)); ?></span></h3>
                         <hr>
@@ -54,19 +46,70 @@
                                         <b>ผู้สั่งยา:</b> <?php echo $doctor_name; ?><br>
                                     </div>    
                                 </div>
-                                <?php if (isAdmin()) { ?>
+                                <?php if ((int) $last_state_status >= 0 && isMyTask($last_state)) { ?>
                                 <div class="card border-danger mb-3">
                                     <div class="card-body">
-                                        <label for="comment">ลงความเห็น <small class="text-info">สามารถเว้นว่างได้</small></label>
-                                        <textarea id="comment" name="comment" class="form-control mb-3" rows="4"></textarea>
-                                        <a href="../pages/document_save.php?id=<?php echo $id; ?>" class="btn btn-success btn-block text-dark">ยอมรับคำร้อง (Approve)</a>
-                                        <a href="../pages/document_save.php?id=<?php echo $id; ?>" class="btn btn-warning btn-block text-dark">ร้องขอการแก้ไข (Recheck)</a>
-                                        <a href="../pages/document_save.php?id=<?php echo $id; ?>" class="btn btn-danger btn-block">ปฏิเสธคำร้อง (Reject)</a>
+                                        <form method="POST" action="../pages/document_status_save.php" id="form">
+                                            <input type="hidden" name="doc_id" value="<?php echo $id; ?>">
+                                            <input type="hidden" id="status" name="status" value="">
+                                            <input type="hidden" id="current" name="current" value="<?php echo $last_state ?>">
+                                            <label for="comment">ลงความเห็น <small class="text-info">สามารถเว้นว่างได้</small></label>    
+                                            <textarea id="comment" name="comment" class="form-control mb-3" rows="5"></textarea>
+                                            <a id="approve" class="btn btn-success btn-block text-dark">ยอมรับคำร้อง (Approve)</a>
+                                            <a id="recheck" class="btn btn-warning btn-block text-dark">ร้องขอการแก้ไข (Recheck)</a>
+                                            <a id="reject" class="btn btn-danger btn-block">ปฏิเสธคำร้อง (Reject)</a>
+                                            <input type="submit" value="submit">
+                                        </form>
+                                        <script>
+                                            $("#approve").click(function () {
+                                                $("#status").val("9");
+                                                swal({
+                                                    title: "ท่านกำลัง \"ยอมรับ\" คำร้องนี้",
+                                                    text: "การดำเนินการดังกล่าวไม่สามารถย้อนกลับได้",
+                                                    icon: "warning",
+                                                    buttons: true,
+                                                    dangerMode: true
+                                                }).then((willDelete) => {
+                                                    if (willDelete) {
+                                                        $("#form").submit();
+                                                    }
+                                                });
+                                            });
+                                            $("#recheck").click(function () {
+                                                $("#status").val("-1");
+                                                swal({
+                                                    title: "ท่านกำลัง \"ร้องขอการแก้ไข\" คำร้องนี้",
+                                                    text: "การดำเนินการดังกล่าวไม่สามารถย้อนกลับได้",
+                                                    icon: "warning",
+                                                    buttons: true,
+                                                    dangerMode: true
+                                                }).then((willDelete) => {
+                                                    if (willDelete) {
+                                                        $("#form").submit();
+                                                    }
+                                                });
+                                            });
+                                            $("#reject").click(function () {
+                                                $("#status").val("-9");
+                                                swal({
+                                                    title: "ท่านกำลัง \"ปฏิเสธ\" คำร้องนี้",
+                                                    text: "การดำเนินการดังกล่าวไม่สามารถย้อนกลับได้",
+                                                    icon: "warning",
+                                                    buttons: true,
+                                                    dangerMode: true
+                                                }).then((willDelete) => {
+                                                    if (willDelete) {
+                                                        $("#form").submit();
+                                                    }
+                                                });
+                                            });
+                                        </script>
                                     </div>
                                 </div>
                                 <?php } ?>
                             </div>
                             <div class="col-12 col-md-8 grey lighten-4">
+                            <form class="disabled" disabled>
                                 <h5 class="font-weight-bold text-center mt-3 mb-3">แบบฟอร์มการขอใช้ยาเฉพาะรายที่ไม่มีในเภสัชตำหรับโรงพยาบาล</h5>
                                 <hr>
                                 <div class="mb-3 mt-3">
@@ -331,7 +374,6 @@
                                     </div>
                                 </div>
                                 <script>
-                                    $("input").prop("disabled",true);
                                 </script>
                             </div>
                         </div>

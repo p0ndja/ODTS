@@ -101,6 +101,14 @@
             //Don't forget to update data in SQL!
         }
 
+        public function getRole() {
+            return $this->getProperties("role");
+        }
+
+        public function getDepart() {
+            return $this->getProperties("depart");
+        }
+
         public function isAdmin() {
             return $this->getProperties("admin");
         }
@@ -193,12 +201,11 @@
                 $this->properties = array(
                     "owner" => null,
                     "state" => array(
-                        "current" => 0,
                         // 0 => User create submission
                         0 => array(
-                            "status" => 0,
+                            "status" => 9,
                             "comment" => null,
-                            "update" => null
+                            "update" => time()
                         ),
                         // 1 => Head Unit
                         1 => array(
@@ -223,7 +230,14 @@
                             "status" => 0,
                             "comment" => null,
                             "update" => null
-                        )
+                        ),
+                        // 5 => Final State
+                        5 => array(
+                            "status" => 0,
+                            "comment" => null,
+                            "update" => null
+                        ),
+                        "current" => 1
                     )
                 );
             }

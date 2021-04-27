@@ -14,12 +14,8 @@
                         $doc = new Document($id);
                         if ($doc->getID() == -1) header("Location: ../document/"); //Invalid Document ID
 
-                        $owner = $doc->getProperties("owner");
                         $state = $doc->getProperties("state");
 
-                        $upload_time = $doc->getData("upload_time");
-                        $patient_hn = $doc->getData("patientHN");
-                        $doctor_name = $doc->getData("doctorName");
                         $flow = $doc->getData("flow");
 
                         $last_state = 5;
@@ -67,9 +63,10 @@
                             </div>
                             <div class="form-group row">
                                 <label for="doctorTelephone"
-                                    class="col-md-3 col-form-label text-md-right">โทรศัพท์</label>
+                                    class="col-md-3 col-form-label text-md-right">โทรศัพท์<br><small class="text-warning">เลข 10 หลัก ไม่มีขีด</small></label>
                                 <div class="col-md-9">
-                                    <input type="tel" class="form-control" id="doctorTelephone" name="doctorTelephone" pattern="[0-9]{10}" required value="<?php echo $doc->getData("doctorTelephone");?>">
+                                    <input type="tel" class="form-control" id="doctorTelephone" name="doctorTelephone"
+                                        pattern="[0-9]{10}" required value="<?php echo $doc->getData("doctorTelephone");?>">
                                 </div>
                             </div>
                         </div>

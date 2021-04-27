@@ -35,7 +35,7 @@
                             </div>
                             <div class="form-group row">
                                 <label for="doctorTelephone"
-                                    class="col-md-3 col-form-label text-md-right">โทรศัพท์</label>
+                                    class="col-md-3 col-form-label text-md-right">โทรศัพท์<br><small class="text-warning">เลข 10 หลัก ไม่มีขีด</small></label>
                                 <div class="col-md-9">
                                     <input type="tel" class="form-control" id="doctorTelephone" name="doctorTelephone"
                                         pattern="[0-9]{10}" required>
@@ -277,6 +277,7 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" name="form_submit" value="default"/>
                     </form>
                     <div class="text-center">
                         <a href="../" class="btn btn-danger" id="form_reset">ยกเลิก</a>
@@ -284,6 +285,7 @@
                     </div>
                     <script>
                         $("#form_submit").click(function () {
+                            console.log($("#form")[0].checkValidity());
                             if ($("#form")[0].checkValidity()) {
                                 swal({
                                     title: "ท่านได้ตรวจสอบและยืนยันว่าข้อมูลทั้งหมดถูกต้องตามความเป็นจริง",
@@ -302,11 +304,7 @@
                                     icon: "warning",
                                     buttons: true,
                                     dangerMode: true
-                                }).then((willDelete) => {
-                                    if (willDelete) {
-                                        $("#form").submit();
-                                    }
-                                });
+                                }).then($('#form').addClass('was-validated'));
                             }
                         });
                     </script>

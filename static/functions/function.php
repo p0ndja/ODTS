@@ -48,6 +48,11 @@
         return $_SESSION['user']->isAdmin();
     }
 
+    function isMyTask($state, $depart = 0) {
+        if (!isLogin()) return false;
+        return $state == $_SESSION['user']->getRole();
+    }
+
     function getUserData(int $id) {
         global $conn;
         if ($stmt = $conn->prepare('SELECT * FROM `user` WHERE id = ?')) {
