@@ -58,7 +58,6 @@
                                             <a id="approve" class="btn btn-success btn-block text-dark">ยอมรับคำร้อง (Approve)</a>
                                             <a id="recheck" class="btn btn-warning btn-block text-dark">ร้องขอการแก้ไข (Recheck)</a>
                                             <a id="reject" class="btn btn-danger btn-block">ปฏิเสธคำร้อง (Reject)</a>
-                                            <input type="submit" value="submit">
                                         </form>
                                         <script>
                                             $("#approve").click(function () {
