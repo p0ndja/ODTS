@@ -9,6 +9,7 @@ This project is a part of the Advanced Computer Programming course (EN811301)
 #### Features:
 - Be the online form instead of a physical paper, especially during of the pandemic.
 - Replace asking your document status by face-to-face by tracking your document status online.
+- The operator can "Approve", "Reject", or "Recheck" on their specific step.
 - Editable form after getting "Recheck" status from the operator
 
 #### Future Improvement:
